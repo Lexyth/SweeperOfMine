@@ -23,4 +23,12 @@ public class GamePanel extends JPanel {
 			add(fields[i]);
 		}		
 	}
+	
+	public void toggleFlagMode() {
+				
+		for (int i = 0; i < fields.length; i++) {
+			
+			fields[i].toggleFlagMode();
+		}
+	}
 }

@@ -5,7 +5,8 @@ import javax.swing.JButton;
 
 public class FieldButton extends JButton {
 	
-	private boolean flagged = false;
+	private boolean flagMode = false;
+	private boolean flag = false;
 	private int value;
 	
 	FieldButton (int i) {
@@ -43,21 +44,26 @@ public class FieldButton extends JButton {
 		}
 	}
 	
-	public void toggleFlag() {
+	public void toggleFlagMode() {
 		
-		flagged = !flagged;
-		
-		if (flagged) {
-			setBackground(Color.RED);
-		} else {
-			setBackground(Color.BLUE);
-		}
+		flagMode = !flagMode;
+
 	}
 	
 	public void flagOrUncover() {
 		
-		if (flagged) toggleFlag();
-		else reveal();
+		if (flagMode) toggleFlag();
+		else if (!flag) reveal();
+	}
+	
+	private void toggleFlag() {
+		
+		flag = !flag;
+		if (flag) {
+			setBackground(Color.RED);
+		} else {
+			setBackground(Color.BLUE);
+		}
 	}
 
 }

@@ -22,11 +22,18 @@ public class View extends JPanel {
 		panelComment.add(labelComment);
 		panel.add(panelComment);
 		add(panel);
+		
+		optionPanel.setFlagListener(this::toggleFlagMode);
 	}
 	
 	public void setResetListener(Runnable listener) {
 		
 		optionPanel.setResetListener(listener);
+	}
+	
+	private void toggleFlagMode() {
+		
+		gamePanel.toggleFlagMode();
 	}
 	
 	public void changeComment(String message) {
