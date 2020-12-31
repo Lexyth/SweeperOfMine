@@ -15,9 +15,14 @@ public class Controller {
 		this.model = model_;
 		
 		view.setResetListener(this::handleReset);
-		model.setCommentListener(this::handleComment);
-	
+		model.setCommentListener(this::handleComment);		
+		
 		handleReset();
+	}
+	
+	public Model getModel() {
+		
+		return model;
 	}
 	
 	private void handleReset() {
@@ -25,6 +30,7 @@ public class Controller {
 		view.reset(model.reset());
 		view.setCheckUncoveredWinListener(this::handleCheckUncoveredWin);
 		view.setChangeFlaggedCountListener(this::handleChangeFlaggedCount);
+		this.view.setModel(model);
 	}
 	
 	private void handleComment(String message) {

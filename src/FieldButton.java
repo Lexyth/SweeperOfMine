@@ -11,7 +11,9 @@ public class FieldButton extends JButton {
 	private int value;
 	private Runnable checkUncoveredWinListener;
 	private Consumer<Integer> changeFlaggedCountListener;
+	private Consumer<Integer> fillListener;
 	int idx;
+	boolean revealed = false;
 	
 	FieldButton (int idx_, int i) {
 		
@@ -48,18 +50,26 @@ public class FieldButton extends JButton {
 		changeFlaggedCountListener = listener;
 	}
 	
+	public void setFillListener(Consumer<Integer> listener) {
+		
+		fillListener = listener;
+	}
+	
 	public void reveal() {
 		
 		if (value == -1) {
 			
 			setText("B"); System.out.println("Boom!");
 			setBackground(Color.DARK_GRAY);
+			revealed = true;
 		
 		} else {
 			
 			setText(Integer.toString(value));
 			setBackground(Color.WHITE);
 			checkUncoveredWinListener.run();
+			revealed = true;
+			fillListener.accept(idx);
 		}
 		
 		for (ActionListener a : this.getActionListeners()) {

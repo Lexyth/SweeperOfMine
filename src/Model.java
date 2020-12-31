@@ -14,6 +14,11 @@ public class Model {
 		
 	}
 	
+	public int[] getFields() {
+		
+		return fields;
+	}
+	
 	public void setCommentListener(Consumer<String> listener) {
 		
 		commentListener = listener;
