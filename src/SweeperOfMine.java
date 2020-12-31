@@ -16,6 +16,8 @@ public class SweeperOfMine {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setResizable(false);
 		
+		frame.add(view);
+		
 		frame.setVisible(true);
 	}
 
