@@ -16,10 +16,13 @@ public class Controller {
 		
 		view.setResetListener(this::handleReset);
 		model.setCommentListener(this::handleComment);
+	
+		handleReset();
 	}
 	
 	private void handleReset() {
 		
+		view.reset();
 		model.reset();
 	}
 	

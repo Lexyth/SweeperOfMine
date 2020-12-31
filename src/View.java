@@ -33,4 +33,9 @@ public class View extends JPanel {
 		
 		labelComment.setText(message);
 	}
+	
+	public void reset() {
+		
+		gamePanel.reset();
+	}
 }

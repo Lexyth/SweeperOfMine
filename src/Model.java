@@ -1,3 +1,4 @@
+import java.time.Instant;
 import java.util.function.Consumer;
 
 public class Model {
@@ -45,7 +46,7 @@ public class Model {
 			fields[i] = sum;
 		}
 		
-		commentListener.accept("Reset successful!");
+		commentListener.accept("Reset successful!" + Instant.now().toString());
 	}
 
 }
