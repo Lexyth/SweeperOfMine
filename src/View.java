@@ -18,17 +18,19 @@ public class View extends JPanel {
 		JPanel panel = new JPanel();
 		panel.setLayout(new GridLayout(2, 1));
 		panel.add(optionPanel);
-		panel.add(labelComment);
+		JPanel panelComment = new JPanel();
+		panelComment.add(labelComment);
+		panel.add(panelComment);
 		add(panel);
 	}
 	
 	public void setResetListener(Runnable listener) {
 		
-		//add actionlistener to resetbutton with .run()
+		optionPanel.setResetListener(listener);
 	}
 	
 	public void changeComment(String message) {
 		
-		
+		labelComment.setText(message);
 	}
 }

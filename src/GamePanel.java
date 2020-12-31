@@ -7,6 +7,6 @@ public class GamePanel extends JPanel {
 	
 	GamePanel () {
 		
-		setBackground(Color.BLACK);
+		setBackground(Color.BLUE);
 	}
 }
