@@ -7,7 +7,7 @@ import javax.swing.JPanel;
 public class GamePanel extends JPanel {
 
 	private FieldButton[] fields = new FieldButton[100];
-	private Model model;
+//	private Model model;
 	
 	GamePanel () {
 		
@@ -15,10 +15,10 @@ public class GamePanel extends JPanel {
 		
 	}
 	
-	public void setModel(Model m) {
-		
-		model = m;
-	}
+//	public void setModel(Model m) {
+//		
+//		model = m;
+//	}
 	
 	public void reset(int[] values) {
 		
@@ -59,16 +59,16 @@ public class GamePanel extends JPanel {
 				int idx = i+(j*10)+k;
 				
 				if (Math.abs(j+k) == 1 && idx >= 0 && idx < fields.length && !(idx%10==9 && k==-1) && !(idx%10==0 && k==1))
-					if (getFieldValue(idx)==0 && !fields[idx].revealed)
+					if (fields[idx].getValue() == 0 && !fields[idx].revealed) //getFieldValue(idx)==0 && !fields[idx].revealed)
 						fields[idx].reveal();
 			}
 		}
 	}
 	
-	private int getFieldValue(int idx) {
-				
-		return model.getFields()[idx];
-	}
+//	private int getFieldValue(int idx) {
+//				
+//		return model.getFields()[idx];
+//	}
 	
 	public void setChangeFlaggedCountListener(Consumer<Integer> listener) {
 		

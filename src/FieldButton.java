@@ -69,7 +69,7 @@ public class FieldButton extends JButton {
 			setBackground(Color.WHITE);
 			checkUncoveredWinListener.run();
 			revealed = true;
-			fillListener.accept(idx);
+			if (value == 0) fillListener.accept(idx);
 		}
 		
 		for (ActionListener a : this.getActionListeners()) {
@@ -102,6 +102,11 @@ public class FieldButton extends JButton {
 		}
 		
 		changeFlaggedCountListener.accept(idx+(flag?0:5000));
+	}
+	
+	public int getValue() {
+		
+		return value;
 	}
 
 }

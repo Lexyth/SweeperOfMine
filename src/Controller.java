@@ -20,17 +20,17 @@ public class Controller {
 		handleReset();
 	}
 	
-	public Model getModel() {
-		
-		return model;
-	}
+//	public Model getModel() {
+//		
+//		return model;
+//	}
 	
 	private void handleReset() {
 		
 		view.reset(model.reset());
 		view.setCheckUncoveredWinListener(this::handleCheckUncoveredWin);
 		view.setChangeFlaggedCountListener(this::handleChangeFlaggedCount);
-		this.view.setModel(model);
+//		this.view.setModel(model);
 	}
 	
 	private void handleComment(String message) {
