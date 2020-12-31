@@ -1,5 +1,6 @@
 import java.awt.Color;
 import java.awt.GridLayout;
+import java.util.function.Consumer;
 
 import javax.swing.JPanel;
 
@@ -19,7 +20,7 @@ public class GamePanel extends JPanel {
 		
 		for (int i = 0; i < fields.length; i++) {
 			
-			fields[i] = new FieldButton(values[i]);
+			fields[i] = new FieldButton(i, values[i]);
 			add(fields[i]);
 		}		
 	}
@@ -32,11 +33,19 @@ public class GamePanel extends JPanel {
 		}
 	}
 	
-	public void setCheckWinListener(Runnable listener) {
+	public void setCheckUncoveredWinListener(Runnable listener) {
 		
 		for (int i = 0; i < fields.length; i++) {
 		
-			fields[i].setCheckWinListener(listener);
+			fields[i].setCheckUncoveredWinListener(listener);
+		}
+	}
+	
+	public void setChangeFlaggedCountListener(Consumer<Integer> listener) {
+		
+		for (int i = 0; i < fields.length; i++) {
+			
+			fields[i].setChangeFlaggedCountListener(listener);
 		}
 	}
 }

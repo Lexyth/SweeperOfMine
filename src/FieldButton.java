@@ -1,5 +1,6 @@
 import java.awt.Color;
 import java.awt.event.ActionListener;
+import java.util.function.Consumer;
 
 import javax.swing.JButton;
 
@@ -8,9 +9,11 @@ public class FieldButton extends JButton {
 	private boolean flagMode = false;
 	private boolean flag = false;
 	private int value;
-	private Runnable checkWin;
+	private Runnable checkUncoveredWinListener;
+	private Consumer<Integer> changeFlaggedCountListener;
+	int idx;
 	
-	FieldButton (int i) {
+	FieldButton (int idx_, int i) {
 		
 		super(" ");
 		
@@ -19,6 +22,8 @@ public class FieldButton extends JButton {
 		setBackground(Color.BLUE);
 		
 		setUncoverListener(this::flagOrReveal);
+		
+		idx = idx_;
 		
 		value = i;
 	}
@@ -33,9 +38,14 @@ public class FieldButton extends JButton {
 		addActionListener(event -> listener.run());
 	}
 	
-	public void setCheckWinListener(Runnable listener) {
+	public void setCheckUncoveredWinListener(Runnable listener) {
 		
-		checkWin = listener;
+		checkUncoveredWinListener = listener;
+	}
+	
+	public void setChangeFlaggedCountListener(Consumer<Integer> listener) {
+		
+		changeFlaggedCountListener = listener;
 	}
 	
 	public void reveal() {
@@ -43,11 +53,13 @@ public class FieldButton extends JButton {
 		if (value == -1) {
 			
 			setText("B"); System.out.println("Boom!");
+			setBackground(Color.DARK_GRAY);
 		
 		} else {
 			
 			setText(Integer.toString(value));
-			checkWin.run();
+			setBackground(Color.WHITE);
+			checkUncoveredWinListener.run();
 		}
 		
 		for (ActionListener a : this.getActionListeners()) {
@@ -72,11 +84,14 @@ public class FieldButton extends JButton {
 	private void toggleFlag() {
 		
 		flag = !flag;
+		
 		if (flag) {
 			setBackground(Color.RED);
 		} else {
 			setBackground(Color.BLUE);
 		}
+		
+		changeFlaggedCountListener.accept(idx+(flag?0:5000));
 	}
 
 }

@@ -7,6 +7,8 @@ public class Model {
 	private int[] fields = new int[100];
 	private int bombCount = 0;
 	private int uncoveredCount = 0;
+	private int bombsFoundCount = 0;
+	private int flagsCount = 0;
 	
 	Model() {
 		
@@ -17,18 +19,44 @@ public class Model {
 		commentListener = listener;
 	}
 	
-	public void checkWin () {
-		
+	public void checkUncoveredWin () {
+				
 		uncoveredCount++;
 		if (fields.length - bombCount == uncoveredCount) 
-			commentListener.accept("Win! You can either reset or blow up the remaining bombs just for fun xD");
+			win();
 		
 		System.out.println(fields.length-bombCount + " : " + uncoveredCount);
+	}
+	
+	public boolean changeFlaggedCount(int idx) {
+		
+		flagsCount += idx<5000? 1 : -1;
+		
+		if (fields[idx<5000?idx:idx-5000]==-1) {
+			
+			bombsFoundCount += idx<5000? 1 : -1;
+		}
+		
+		System.out.println("BombCount : " + bombCount + " BombsFoundCount :" + bombsFoundCount + " FlagsCount : " + flagsCount);
+		
+		if (bombsFoundCount == bombCount && flagsCount == bombCount) {
+			
+			win();
+		}
+		
+		return false;
+	}
+	
+	public void win() {
+		
+		commentListener.accept("Win! You can either reset or blow up the remaining bombs just for fun xD");
 	}
 	
 	public int[] reset() {
 		
 		uncoveredCount = 0;
+		flagsCount = 0;
+		bombsFoundCount = 0;
 		
 		int bombs = 0;
 		
@@ -38,11 +66,11 @@ public class Model {
 			bombs += -fields[i];
 		}
 				
-		int rnd = (int)Math.random()*fields.length;
+		int rnd = (int)(Math.random()*fields.length);
 		
 		if (fields[rnd]!=-1) {
 			
-			fields[(int)Math.random()*fields.length] = -1;
+			fields[rnd] = -1;
 			bombs++;
 		}
 		

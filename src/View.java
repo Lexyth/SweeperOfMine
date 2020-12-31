@@ -1,4 +1,5 @@
 import java.awt.GridLayout;
+import java.util.function.Consumer;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -31,9 +32,14 @@ public class View extends JPanel {
 		optionPanel.setResetListener(listener);
 	}
 	
-	public void setCheckWinListener(Runnable listener) {
+	public void setCheckUncoveredWinListener(Runnable listener) {
 		
-		gamePanel.setCheckWinListener(listener);
+		gamePanel.setCheckUncoveredWinListener(listener);
+	}
+	
+	public void setChangeFlaggedCountListener(Consumer<Integer> listener) {
+		
+		gamePanel.setChangeFlaggedCountListener(listener);
 	}
 	
 	private void toggleFlagMode() {
