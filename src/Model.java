@@ -26,7 +26,7 @@ public class Model {
 		
 		for (int i = 0; i < fields.length; i++) {
 			
-			if (fields[i] == -1) break;
+			if (!(fields[i] == -1)) {
 			
 			int sum = 0;
 			
@@ -37,13 +37,14 @@ public class Model {
 					//TODO replace 10 with difficulty once implemented
 					int idx = i+(j*10)+k;
 					
-					if (idx >= 0 && idx < fields.length && !(idx%10==9 && k==-1) && !(idx%10==0 && k==1)) sum += fields[i+(j*10)+k];
+					if (idx >= 0 && idx < fields.length && !(idx%10==9 && k==-1) && !(idx%10==0 && k==1)) sum += fields[i+(j*10)+k] == -1 ? 1 : 0;
 				}
 			}
 			
 			sum -= fields[i];
 			
 			fields[i] = sum;
+			}
 		}
 		
 		commentListener.accept("Reset successful!" + Instant.now().toString());

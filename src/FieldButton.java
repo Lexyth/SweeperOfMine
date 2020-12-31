@@ -31,8 +31,11 @@ public class FieldButton extends JButton {
 	
 	public void reveal() {
 		
-		if (value == -1) System.out.println("Boom!");//bomb();
-		else setText(Integer.toString(value));
+		if (value == -1) {
+			
+			setText("B"); System.out.println("Boom!");
+		
+		} else setText(Integer.toString(value));
 		
 		for (ActionListener a : this.getActionListeners()) {
 			
