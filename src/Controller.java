@@ -22,8 +22,7 @@ public class Controller {
 	
 	private void handleReset() {
 		
-		view.reset();
-		model.reset();
+		view.reset(model.reset());
 	}
 	
 	private void handleComment(String message) {

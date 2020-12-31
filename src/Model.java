@@ -15,7 +15,7 @@ public class Model {
 		commentListener = listener;
 	}
 	
-	public void reset() {
+	public int[] reset() {
 		
 		for (int i = 0; i < fields.length; i++) {
 			
@@ -47,6 +47,8 @@ public class Model {
 		}
 		
 		commentListener.accept("Reset successful!" + Instant.now().toString());
+		
+		return fields;
 	}
 
 }
