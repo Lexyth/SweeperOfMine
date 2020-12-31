@@ -11,9 +11,20 @@ public class OptionPanel extends JPanel {
 	
 	OptionPanel () {
 		
+		buttonReset.setFocusPainted(false);
+		buttonFlag.setFocusPainted(false);
+		buttonFlag.setBackground(Color.GREEN);
+		
 		add(buttonReset);
 		add(buttonFlag);
+		
 		setBackground(Color.CYAN);
+
+		buttonFlag.addActionListener( event -> buttonFlag.setBackground(
+				buttonFlag.getBackground() == Color.RED ?
+						Color.GREEN : Color.RED));
+		
+		buttonReset.addActionListener( event -> buttonFlag.setBackground(Color.GREEN));
 	}
 	
 	public void setResetListener (Runnable listener) {

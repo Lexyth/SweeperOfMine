@@ -5,6 +5,8 @@ public class Model {
 	
 	private Consumer<String> commentListener;
 	private int[] fields = new int[100];
+	private int bombCount = 0;
+	private int uncoveredCount = 0;
 	
 	Model() {
 		
@@ -15,14 +17,36 @@ public class Model {
 		commentListener = listener;
 	}
 	
+	public void checkWin () {
+		
+		uncoveredCount++;
+		if (fields.length - bombCount == uncoveredCount) 
+			commentListener.accept("Win! You can either reset or blow up the remaining bombs just for fun xD");
+		
+		System.out.println(fields.length-bombCount + " : " + uncoveredCount);
+	}
+	
 	public int[] reset() {
+		
+		uncoveredCount = 0;
+		
+		int bombs = 0;
 		
 		for (int i = 0; i < fields.length; i++) {
 			
 			fields[i] = Math.random() < 0.1 ? -1 : 0;
+			bombs += -fields[i];
+		}
+				
+		int rnd = (int)Math.random()*fields.length;
+		
+		if (fields[rnd]!=-1) {
+			
+			fields[(int)Math.random()*fields.length] = -1;
+			bombs++;
 		}
 		
-		fields[(int)Math.random()*fields.length] = -1;
+		bombCount = bombs;
 		
 		for (int i = 0; i < fields.length; i++) {
 			

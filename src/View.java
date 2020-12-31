@@ -31,6 +31,11 @@ public class View extends JPanel {
 		optionPanel.setResetListener(listener);
 	}
 	
+	public void setCheckWinListener(Runnable listener) {
+		
+		gamePanel.setCheckWinListener(listener);
+	}
+	
 	private void toggleFlagMode() {
 		
 		gamePanel.toggleFlagMode();

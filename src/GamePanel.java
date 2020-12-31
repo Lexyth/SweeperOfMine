@@ -31,4 +31,12 @@ public class GamePanel extends JPanel {
 			fields[i].toggleFlagMode();
 		}
 	}
+	
+	public void setCheckWinListener(Runnable listener) {
+		
+		for (int i = 0; i < fields.length; i++) {
+		
+			fields[i].setCheckWinListener(listener);
+		}
+	}
 }

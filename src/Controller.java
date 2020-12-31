@@ -23,6 +23,7 @@ public class Controller {
 	private void handleReset() {
 		
 		view.reset(model.reset());
+		view.setCheckWinListener(this::handleCheckWin);
 	}
 	
 	private void handleComment(String message) {
@@ -30,5 +31,8 @@ public class Controller {
 		view.changeComment(message);
 	}
 	
-	
+	private void handleCheckWin() {
+		
+		model.checkWin();
+	}
 }
