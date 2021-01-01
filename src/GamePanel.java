@@ -49,6 +49,14 @@ public class GamePanel extends JPanel {
 		}
 	}
 	
+	public void setBoomListener(Runnable listener) {
+		
+		for (int i = 0; i < fields.length; i++) {
+			
+			fields[i].setBoomListener(listener);
+		}
+	}
+	
 	public void fill(int i) {
 		
 		for (int j = -1; j <= 1; j++) {

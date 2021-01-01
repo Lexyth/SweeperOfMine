@@ -30,6 +30,7 @@ public class Controller {
 		view.reset(model.reset());
 		view.setCheckUncoveredWinListener(this::handleCheckUncoveredWin);
 		view.setChangeFlaggedCountListener(this::handleChangeFlaggedCount);
+		view.setBoomListener(this::handleBoom);
 //		this.view.setModel(model);
 	}
 	
@@ -46,5 +47,10 @@ public class Controller {
 	private void handleChangeFlaggedCount(int idx) {
 		
 		model.changeFlaggedCount(idx);
+	}
+	
+	private void handleBoom() {
+
+		model.boom();
 	}
 }

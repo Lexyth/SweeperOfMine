@@ -51,6 +51,11 @@ public class View extends JPanel {
 		gamePanel.setChangeFlaggedCountListener(listener);
 	}
 	
+	public void setBoomListener(Runnable listener) {
+		
+		gamePanel.setBoomListener(listener);
+	}
+	
 	private void toggleFlagMode() {
 		
 		gamePanel.toggleFlagMode();

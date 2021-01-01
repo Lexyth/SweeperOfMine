@@ -9,6 +9,7 @@ public class Model {
 	private int uncoveredCount = 0;
 	private int bombsFoundCount = 0;
 	private int flagsCount = 0;
+	private int won = 0;
 	
 	Model() {
 		
@@ -54,7 +55,18 @@ public class Model {
 	
 	public void win() {
 		
+		if (won!=-1) {
+		won = 1;
 		commentListener.accept("Win! You can either reset or blow up the remaining bombs just for fun xD");
+		}
+	}
+	
+	public void boom() {
+		
+		if (won!=1) {
+			won = -1;
+			commentListener.accept("BOOOOOOOOMMMMMM!!!!!");
+		}
 	}
 	
 	public int[] reset() {
@@ -62,6 +74,7 @@ public class Model {
 		uncoveredCount = 0;
 		flagsCount = 0;
 		bombsFoundCount = 0;
+		won = 0;
 		
 		int bombs = 0;
 		
