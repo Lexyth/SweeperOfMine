@@ -17,7 +17,8 @@ public class SweeperOfMine {
 		frame.setResizable(false);
 		
 		frame.add(view);
-		
+
+		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
 	}
 
