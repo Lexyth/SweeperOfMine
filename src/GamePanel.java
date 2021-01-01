@@ -66,7 +66,7 @@ public class GamePanel extends JPanel {
 				//TODO replace 10 with difficulty once implemented
 				int idx = i+(j*10)+k;
 				
-				if (Math.abs(j+k) == 1 && idx >= 0 && idx < fields.length && !(idx%10==9 && k==-1) && !(idx%10==0 && k==1))
+				if (/*Math.abs(j+k) == 1 &&*/ idx >= 0 && idx < fields.length && !(idx%10==9 && k==-1) && !(idx%10==0 && k==1))
 					if (!fields[idx].revealed) //getFieldValue(idx)==0 && !fields[idx].revealed)
 						fields[idx].reveal();
 			}

@@ -1,4 +1,3 @@
-import java.time.Instant;
 import java.util.function.Consumer;
 
 public class Model {
@@ -117,7 +116,7 @@ public class Model {
 			}
 		}
 		
-		commentListener.accept("Reset successful!" + Instant.now().toString());
+		commentListener.accept("Reset successful! Bombs in this field :" + bombCount);
 		
 		return fields;
 	}
