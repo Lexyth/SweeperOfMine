@@ -1,5 +1,8 @@
+import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.GridLayout;
 
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
@@ -15,8 +18,21 @@ public class OptionPanel extends JPanel {
 		buttonFlag.setFocusPainted(false);
 		buttonFlag.setBackground(Color.GREEN);
 		
-		add(buttonReset);
-		add(buttonFlag);
+		setLayout(new GridLayout());
+		
+		JPanel resetPanel = new JPanel();
+		JPanel flagPanel = new JPanel();
+		
+		buttonReset.setHorizontalAlignment(JButton.CENTER);
+		buttonReset.setVerticalAlignment(JButton.CENTER);
+		buttonFlag.setHorizontalAlignment(JButton.CENTER);
+		buttonFlag.setVerticalAlignment(JButton.CENTER);
+		
+		resetPanel.add(buttonReset);
+		flagPanel.add(buttonFlag);
+		
+		add(resetPanel);
+		add(flagPanel);
 		
 		setBackground(Color.CYAN);
 
@@ -36,5 +52,4 @@ public class OptionPanel extends JPanel {
 		
 		buttonFlag.addActionListener(event -> listener.run());
 	}
-
 }

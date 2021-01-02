@@ -20,18 +20,12 @@ public class Controller {
 		handleReset();
 	}
 	
-//	public Model getModel() {
-//		
-//		return model;
-//	}
-	
 	private void handleReset() {
 		
 		view.reset(model.reset());
 		view.setCheckUncoveredWinListener(this::handleCheckUncoveredWin);
 		view.setChangeFlaggedCountListener(this::handleChangeFlaggedCount);
 		view.setBoomListener(this::handleBoom);
-//		this.view.setModel(model);
 	}
 	
 	private void handleComment(String message) {

@@ -1,4 +1,6 @@
 import javax.swing.JFrame;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
 
 public class SweeperOfMine {
 
@@ -16,9 +18,18 @@ public class SweeperOfMine {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setResizable(false);
 		
+		//addMenu(frame);
 		frame.add(view);
 		
+		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
 	}
 
+	private static void addMenu(JFrame frame) {
+		
+		JMenu menu = new JMenu("Options");
+		JMenuBar menuBar = new JMenuBar();
+		menuBar.add(menu);
+		frame.setJMenuBar(menuBar);
+	}
 }

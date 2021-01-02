@@ -9,7 +9,6 @@ public class View extends JPanel {
 	GamePanel gamePanel = new GamePanel();
 	OptionPanel optionPanel = new OptionPanel();
 	JLabel labelComment = new JLabel("Welcome to Sweeper Of Mine");
-//	Model model;
 
 	View() {
 		
@@ -21,6 +20,9 @@ public class View extends JPanel {
 		panel.setLayout(new GridLayout(2, 1));
 		panel.add(optionPanel);
 		JPanel panelComment = new JPanel();
+		panelComment.setLayout(new GridLayout());
+		labelComment.setHorizontalAlignment(JLabel.CENTER);
+		labelComment.setVerticalAlignment(JLabel.CENTER);
 		panelComment.add(labelComment);
 		panel.add(panelComment);
 		add(panel);
@@ -28,13 +30,6 @@ public class View extends JPanel {
 		optionPanel.setFlagListener(this::toggleFlagMode);
 		
 	}
-	
-//	public void setModel(Model m) {
-//		
-//		model = m;
-//		gamePanel.setModel(model);
-//		gamePanel.setFillListener();
-//	}
 	
 	public void setResetListener(Runnable listener) {
 		
