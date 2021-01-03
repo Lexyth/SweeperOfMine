@@ -29,11 +29,18 @@ public class View extends JPanel {
 		
 		optionPanel.setFlagListener(this::toggleFlagMode);
 		
+		labelComment.setText("Welcome to Sweeper Of Mine!");
+		
 	}
 	
 	public void setResetListener(Runnable listener) {
 		
 		optionPanel.setResetListener(listener);
+	}
+	
+	public void setDifficultyListener(Runnable listener) {
+		
+		optionPanel.setDifficultyListener(listener);
 	}
 	
 	public void setCheckUncoveredWinListener(Runnable listener) {
@@ -59,6 +66,11 @@ public class View extends JPanel {
 	public void changeComment(String message) {
 		
 		labelComment.setText(message);
+	}
+	
+	public void changeDifficultyLabel(String difficulty) {
+		
+		optionPanel.changeDifficultyLabel(difficulty);
 	}
 	
 	public void reset(int[] values) {

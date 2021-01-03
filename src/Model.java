@@ -5,7 +5,8 @@ import java.util.function.Consumer;
 public class Model {
 
 	private Consumer<String> listenerComment;
-
+	private Consumer<String> listenerDifficultyLabel;
+	
 	private ArrayList<Field> fields;
 	private int size = 10;
 	private int fieldCount = size * size;
@@ -19,7 +20,8 @@ public class Model {
 	private int bombsFoundCount = 0;
 	private int flagsCount = 0;
 	private int won = 0;
-
+	
+	
 	Model() {
 
 	}
@@ -82,13 +84,23 @@ public class Model {
 
 	public void setBombCount(int amount) {
 
-		bombCount = bombCount < fieldCount ? bombCount : fieldCount - 10;
+		bombCount = amount < fieldCount-10 ? amount : fieldCount - 10;
 		emptyCount = fieldCount - bombCount;
+	}
+	
+	public int getBombCount () {
+		
+		return bombCount;
 	}
 
 	public void setCommentListener(Consumer<String> listener) {
 
 		listenerComment = listener;
+	}
+	
+	public void setDifficultyLableListener(Consumer<String> listener) {
+		
+		listenerDifficultyLabel = listener;
 	}
 
 	// rework
@@ -162,6 +174,7 @@ public class Model {
 		// to reset the listener... idk why
 		listenerComment.accept("");
 		listenerComment.accept("Reset successful!");
+		listenerDifficultyLabel.accept(Integer.toString(bombCount));
 
 		// rework
 		int[] arr = new int[fields.size()];

@@ -15,6 +15,7 @@ public class FieldButton extends JButton {
 	private Consumer<Integer> fillListener;
 	int idx;
 	boolean revealed = false;
+	private Runnable boomEndListener;
 	
 	FieldButton (int idx_, int i) {
 		
@@ -56,6 +57,11 @@ public class FieldButton extends JButton {
 		boomListener = listener;
 	}
 	
+	public void setBoomEndListener(Runnable listener) {
+		
+		boomEndListener = listener;
+	}
+	
 	public void setFillListener(Consumer<Integer> listener) {
 		
 		fillListener = listener;
@@ -67,6 +73,7 @@ public class FieldButton extends JButton {
 			
 			setText("B"); 
 			boomListener.run();
+			boomEndListener.run();
 			setBackground(Color.DARK_GRAY);
 			revealed = true;
 		

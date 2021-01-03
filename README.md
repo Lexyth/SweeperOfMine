@@ -1,11 +1,11 @@
-#Sweeper Of Mine
+# Sweeper Of Mine
 
-#Description
+# Description
 An alternative to the original Minesweeper game for now.
 
 Many features are planned, which will make it very different from the original.
 
-#Roadmap
+# Roadmap
 Rework the code structure to make changing/adding features more managable.
 
 - Add options menu.

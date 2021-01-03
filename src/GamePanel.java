@@ -1,5 +1,6 @@
 import java.awt.Color;
 import java.awt.GridLayout;
+import java.awt.event.ActionListener;
 import java.util.function.Consumer;
 
 import javax.swing.JPanel;
@@ -48,6 +49,18 @@ public class GamePanel extends JPanel {
 		for (int i = 0; i < fields.length; i++) {
 			
 			fields[i].setBoomListener(listener);
+			fields[i].setBoomEndListener(this::haltButtonAction);
+		}
+	}
+	
+	public void haltButtonAction() {
+		
+		for (int i = 0; i < fields.length; i++) {
+			
+			for (ActionListener a : fields[i].getActionListeners()) {
+				
+				fields[i].removeActionListener(a);
+			}
 		}
 	}
 	

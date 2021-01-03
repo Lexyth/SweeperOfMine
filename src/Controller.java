@@ -15,7 +15,9 @@ public class Controller {
 		this.model = model_;
 		
 		view.setResetListener(this::handleReset);
-		model.setCommentListener(this::handleComment);		
+		view.setDifficultyListener(this::handleDifficulty);
+		model.setCommentListener(this::handleComment);
+		model.setDifficultyLableListener(this::handleDifficultyLabel);
 		
 		handleReset();
 	}
@@ -26,6 +28,18 @@ public class Controller {
 		view.setCheckUncoveredWinListener(this::handleCheckUncoveredWin);
 		view.setChangeFlaggedCountListener(this::handleChangeFlaggedCount);
 		view.setBoomListener(this::handleBoom);
+	}
+	
+	private void handleDifficulty() {
+		
+		model.setBombCount(model.getBombCount()<40? model.getBombCount()+10 : 10);
+		handleReset();
+		
+	}
+	
+	private void handleDifficultyLabel(String difficulty) {
+		
+		view.changeDifficultyLabel(difficulty);
 	}
 	
 	private void handleComment(String message) {
