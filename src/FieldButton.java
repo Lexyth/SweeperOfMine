@@ -20,6 +20,7 @@ public class FieldButton extends JButton {
 	boolean revealed = false;
 	private Runnable boomEndListener;
 	private Consumer<Integer> revealListener;
+	private Consumer<Integer> revealSurroundingsListener;
 
 	FieldButton(int idx_, int i) {
 
@@ -49,6 +50,16 @@ public class FieldButton extends JButton {
 			public void mouseReleased(MouseEvent e) {
 				if (SwingUtilities.isRightMouseButton(e))
 					toggleFlag();
+			}
+		});
+		addMouseListener(new MouseAdapter() {
+
+			public void mousePressed(MouseEvent e) {
+
+				if (e.getClickCount() == 2 && !e.isConsumed()) {
+
+					revealSurroundingsListener.accept(idx);
+				}
 			}
 		});
 	}
@@ -83,27 +94,32 @@ public class FieldButton extends JButton {
 		fillListener = listener;
 	}
 
+	public void setRevealSurroundingsListener(Consumer<Integer> listener) {
+
+		revealSurroundingsListener = listener;
+	}
+
 	public void reveal() {
 
-		//revealListener.accept(idx);
-		if (value == -1) {
+		// revealListener.accept(idx);
+		if (!flag)
+			if (value == -1) {
 
-			
-			boomListener.accept(idx);
-			setText("B");
-			boomEndListener.run();
-			setBackground(Color.DARK_GRAY);
-			revealed = true;
+				boomListener.accept(idx);
+				setText("B");
+				boomEndListener.run();
+				setBackground(Color.DARK_GRAY);
+				revealed = true;
 
-		} else {
+			} else {
 
-			setText(Integer.toString(value));
-			setBackground(Color.WHITE);
-			checkUncoveredWinListener.run();
-			revealed = true;
-			if (value == 0)
-				fillListener.accept(idx);
-		}
+				setText(Integer.toString(value));
+				setBackground(Color.WHITE);
+				checkUncoveredWinListener.run();
+				revealed = true;
+				if (value == 0)
+					fillListener.accept(idx);
+			}
 
 		for (ActionListener a : this.getActionListeners()) {
 
@@ -111,9 +127,9 @@ public class FieldButton extends JButton {
 		}
 
 	}
-	
+
 	public void dontBoom() {
-		
+
 		setText("?");
 	}
 

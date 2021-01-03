@@ -29,8 +29,6 @@ public class View extends JPanel {
 		
 		optionPanel.setFlagListener(this::toggleFlagMode);
 		
-		labelComment.setText("Welcome to Sweeper Of Mine!");
-		
 	}
 	
 	public void setResetListener(Runnable listener) {
@@ -87,6 +85,7 @@ public class View extends JPanel {
 		
 		gamePanel.reset(values);
 		gamePanel.setFillListener();
+		gamePanel.setRevealSurroundingsListener();
 
 	}
 	

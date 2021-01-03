@@ -60,9 +60,32 @@ public class GamePanel extends JPanel {
 			fields[i].setRevealListener(listener);
 		}
 	}
-	
+
+	public void setRevealSurroundingsListener() {
+
+		for (int i = 0; i < fields.length; i++) {
+
+			fields[i].setRevealSurroundingsListener(this::revealSurroundings);
+		}
+	}
+
+	public void revealSurroundings(int i) {
+
+		for (int j = -1; j <= 1; j++) {
+
+			for (int k = -1; k <= 1; k++) {
+
+				int idx = i + (j * 10) + k;
+
+				if (idx >= 0 && idx < fields.length && !(idx % 10 == 9 && k == -1) && !(idx % 10 == 0 && k == 1))
+					if (!fields[idx].revealed)
+						fields[idx].reveal();
+			}
+		}
+	}
+
 	public void dontBoom(int idx) {
-		
+
 		fields[idx].dontBoom();
 	}
 

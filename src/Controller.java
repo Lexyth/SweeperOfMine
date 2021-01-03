@@ -23,6 +23,7 @@ public class Controller {
 		model.setResetListener(this::handleReset);
 		
 		handleReset();
+		handleComment("Welcome to Sweeper Of Mine!");
 	}
 	
 	private void handleDontBoom(int idx) {
