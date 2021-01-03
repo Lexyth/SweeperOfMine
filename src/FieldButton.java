@@ -13,12 +13,13 @@ public class FieldButton extends JButton {
 	private boolean flag = false;
 	private int value;
 	private Runnable checkUncoveredWinListener;
-	private Runnable boomListener;
+	private Consumer<Integer> boomListener;
 	private Consumer<Integer> changeFlaggedCountListener;
 	private Consumer<Integer> fillListener;
 	int idx;
 	boolean revealed = false;
 	private Runnable boomEndListener;
+	private Consumer<Integer> revealListener;
 
 	FieldButton(int idx_, int i) {
 
@@ -62,7 +63,7 @@ public class FieldButton extends JButton {
 		changeFlaggedCountListener = listener;
 	}
 
-	public void setBoomListener(Runnable listener) {
+	public void setBoomListener(Consumer<Integer> listener) {
 
 		boomListener = listener;
 	}
@@ -72,6 +73,11 @@ public class FieldButton extends JButton {
 		boomEndListener = listener;
 	}
 
+	public void setRevealListener(Consumer<Integer> listener) {
+
+		revealListener = listener;
+	}
+
 	public void setFillListener(Consumer<Integer> listener) {
 
 		fillListener = listener;
@@ -79,10 +85,12 @@ public class FieldButton extends JButton {
 
 	public void reveal() {
 
+		//revealListener.accept(idx);
 		if (value == -1) {
 
+			
+			boomListener.accept(idx);
 			setText("B");
-			boomListener.run();
 			boomEndListener.run();
 			setBackground(Color.DARK_GRAY);
 			revealed = true;
@@ -102,6 +110,11 @@ public class FieldButton extends JButton {
 			removeActionListener(a);
 		}
 
+	}
+	
+	public void dontBoom() {
+		
+		setText("?");
 	}
 
 	public void toggleFlagMode() {

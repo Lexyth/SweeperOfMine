@@ -18,8 +18,16 @@ public class Controller {
 		view.setDifficultyListener(this::handleDifficulty);
 		model.setCommentListener(this::handleComment);
 		model.setDifficultyLableListener(this::handleDifficultyLabel);
+		model.setDontBoomListener(this::handleDontBoom);
+		model.setRevealListener(this::handleReveal);
+		model.setResetListener(this::handleReset);
 		
 		handleReset();
+	}
+	
+	private void handleDontBoom(int idx) {
+		
+		view.dontBoom(idx);
 	}
 	
 	private void handleReset() {
@@ -28,6 +36,13 @@ public class Controller {
 		view.setCheckUncoveredWinListener(this::handleCheckUncoveredWin);
 		view.setChangeFlaggedCountListener(this::handleChangeFlaggedCount);
 		view.setBoomListener(this::handleBoom);
+		view.setRevealListener(this::handleReveal);
+	}
+	
+	private void handleReveal(int idx) {
+		
+		//model.reveal(idx);
+		view.reveal(idx);
 	}
 	
 	private void handleDifficulty() {
@@ -57,8 +72,8 @@ public class Controller {
 		model.changeFlaggedCount(idx);
 	}
 	
-	private void handleBoom() {
+	private void handleBoom(int idx) {
 
-		model.boom();
+		model.boom(idx);
 	}
 }

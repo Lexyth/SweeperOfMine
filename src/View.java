@@ -53,9 +53,19 @@ public class View extends JPanel {
 		gamePanel.setChangeFlaggedCountListener(listener);
 	}
 	
-	public void setBoomListener(Runnable listener) {
+	public void setBoomListener(Consumer<Integer> listener) {
 		
 		gamePanel.setBoomListener(listener);
+	}
+	
+	public void setRevealListener(Consumer<Integer> listener) {
+		
+		gamePanel.setRevealListener(listener);
+	}
+	
+	public void dontBoom(int idx) {
+		// TODO Auto-generated method stub
+		gamePanel.dontBoom(idx);
 	}
 	
 	private void toggleFlagMode() {
@@ -79,4 +89,11 @@ public class View extends JPanel {
 		gamePanel.setFillListener();
 
 	}
+	
+	public void reveal(int idx) {
+		
+		gamePanel.reveal(idx);
+	}
+
+
 }

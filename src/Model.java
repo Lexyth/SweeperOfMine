@@ -6,7 +6,9 @@ public class Model {
 
 	private Consumer<String> listenerComment;
 	private Consumer<String> listenerDifficultyLabel;
-	
+	private Consumer<Integer> listenerDontBoom;
+	private Consumer<Integer> listenerReveal;
+
 	private ArrayList<Field> fields;
 	private int size = 10;
 	private int fieldCount = size * size;
@@ -20,8 +22,8 @@ public class Model {
 	private int bombsFoundCount = 0;
 	private int flagsCount = 0;
 	private int won = 0;
-	
-	
+	private Runnable listenerReset;
+
 	Model() {
 
 	}
@@ -84,12 +86,12 @@ public class Model {
 
 	public void setBombCount(int amount) {
 
-		bombCount = amount < fieldCount-10 ? amount : fieldCount - 10;
+		bombCount = amount < fieldCount - 10 ? amount : fieldCount - 10;
 		emptyCount = fieldCount - bombCount;
 	}
-	
-	public int getBombCount () {
-		
+
+	public int getBombCount() {
+
 		return bombCount;
 	}
 
@@ -97,10 +99,25 @@ public class Model {
 
 		listenerComment = listener;
 	}
-	
+
 	public void setDifficultyLableListener(Consumer<String> listener) {
-		
+
 		listenerDifficultyLabel = listener;
+	}
+	
+	public void setDontBoomListener(Consumer<Integer> listener) {
+		
+		listenerDontBoom = listener;
+	}
+	
+	public void setRevealListener(Consumer<Integer> listener) {
+		
+		listenerReveal = listener;
+	}
+	
+	public void setResetListener(Runnable listener) {
+		
+		listenerReset = listener;
 	}
 
 	// rework
@@ -144,8 +161,16 @@ public class Model {
 	}
 
 	// rework
-	public void boom() {
+	public void boom(int idx) {
 
+		if (uncoveredCount == 0) {
+			//moveBomb(idx, true);
+			//listenerDontBoom.accept(idx);
+			reset();
+			listenerReset.run();
+			listenerReveal.accept(idx);
+			return;
+		}
 		if (won != 1) {
 			won = -1;
 			listenerComment.accept("BOOOOOOOOMMMMMM!!!!!");
