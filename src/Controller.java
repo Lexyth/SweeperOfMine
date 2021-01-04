@@ -1,14 +1,42 @@
 
 public class Controller {
-	
+
 	View view;
 	Model model;
-	
+
 	Controller() {
-		
-		
+
 	}
-	
+
+	public void setViewModel(View view_, Model model_) {
+		view = view_;
+		model = model_;
+
+		view.setResetCaller(this::handleReset);
+		view.setCallers(this::handleFieldClicks);
+
+		model.setRepaintCaller(this::handleRepaint);
+		model.setCommentCaller(this::handleComment);
+	}
+
+	private void handleReset() {
+
+		model.reset();
+	}
+
+	private void handleFieldClicks(int idx, String type) {
+
+	}
+
+	private void handleRepaint() {
+
+	}
+
+	private void handleComment(String text) {
+
+		view.setComment(text);
+	}
+
 //	public void setViewModel(View view_, Model model_) {
 //		
 //		this.view = view_;

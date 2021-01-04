@@ -50,7 +50,7 @@ public class FieldButton extends JButton {
 			this.setBackground(Color.BLUE);
 	}
 
-	public void setRevealCaller(BiConsumer<Integer, String> caller) {
+	public void setCaller(BiConsumer<Integer, String> caller) {
 
 		addMouseListener(new MouseAdapter() {
 

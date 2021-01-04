@@ -15,7 +15,7 @@ public class Model {
 
 	private boolean lost = false;
 
-	private Runnable resetCaller;
+	private Runnable repaintCaller;
 	private Consumer<String> commentCaller;
 	private Consumer<String> difficultyCaller;
 
@@ -111,7 +111,7 @@ public class Model {
 			if (fields.get(i).isRevealed())
 				fields.get(i).toggleRevealed();
 		}
-		resetCaller.run();
+		repaintCaller.run();
 	}
 
 	public void reveal(int idx) {
@@ -207,8 +207,8 @@ public class Model {
 		difficultyCaller = caller;
 	}
 
-	public void setResetCaller(Runnable caller) {
+	public void setRepaintCaller(Runnable caller) {
 
-		resetCaller = caller;
+		repaintCaller = caller;
 	}
 }

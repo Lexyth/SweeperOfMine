@@ -22,10 +22,10 @@ public class GamePanel extends JPanel {
 		fields[idx].setFlag(flag);
 	}
 
-	public void setRevealCallers(BiConsumer<Integer, String> caller) {
+	public void setCallers(BiConsumer<Integer, String> caller) {
 
 		for (FieldButton fb : fields)
-			fb.setRevealCaller(caller);
+			fb.setCaller(caller);
 	}
 
 //
