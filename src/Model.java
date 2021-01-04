@@ -151,6 +151,11 @@ public class Model {
 			}
 		}
 	}
+	
+	public void revealSurroundings(int idx) {
+		
+		
+	}
 
 	public void flag(int idx) {
 

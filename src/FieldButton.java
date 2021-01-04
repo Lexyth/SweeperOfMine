@@ -12,6 +12,8 @@ public class FieldButton extends JButton {
 	// private Consumer<Integer> revealCaller;
 
 	FieldButton(int idx) {
+		
+		super(" ");
 
 		this.setFocusPainted(false);
 
@@ -20,6 +22,7 @@ public class FieldButton extends JButton {
 		index = idx;
 	}
 
+	//reconsider: is this needed...
 	public int getIndex() {
 
 		return index;
@@ -47,17 +50,17 @@ public class FieldButton extends JButton {
 			this.setBackground(Color.BLUE);
 	}
 
-	public void setRevealCaller(BiConsumer<Integer, Integer> caller) {
+	public void setRevealCaller(BiConsumer<Integer, String> caller) {
 
 		addMouseListener(new MouseAdapter() {
 
 			public void mouseReleased(MouseEvent e) {
 
 				if (SwingUtilities.isLeftMouseButton(e))
-					caller.accept(index, 0);
+					caller.accept(index, "LMB");
 
 				if (SwingUtilities.isRightMouseButton(e))
-					caller.accept(index, 1);
+					caller.accept(index, "RMB");
 
 			}
 
@@ -65,7 +68,7 @@ public class FieldButton extends JButton {
 
 				if (e.getClickCount() == 2 && !e.isConsumed()) {
 
-					caller.accept(index, 2);
+					caller.accept(index, "Double-Click");
 					e.consume();
 				}
 			}
