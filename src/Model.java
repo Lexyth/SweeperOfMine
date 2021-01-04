@@ -4,25 +4,19 @@ import java.util.function.Consumer;
 
 public class Model {
 
-	private Consumer<String> listenerComment;
-	private Consumer<String> listenerDifficultyLabel;
-	private Consumer<Integer> listenerDontBoom;
-	private Consumer<Integer> listenerReveal;
-
 	private ArrayList<Field> fields;
 	private int size = 10;
 	private int fieldCount = size * size;
 	private int bombCount = 10;
 
-	// utility
-	private int emptyCount = fieldCount - bombCount;
+	private int revealedCount = 0;
+	private int flaggedCount = 0;
 
-	// rework
-	private int uncoveredCount = 0;
-	private int bombsFoundCount = 0;
-	private int flagsCount = 0;
-	private int won = 0;
-	private Runnable listenerReset;
+	private boolean lost = false;
+
+	private Runnable resetCaller;
+	private Consumer<String> commentCaller;
+	private Consumer<String> difficultyCaller;
 
 	Model() {
 
@@ -35,31 +29,33 @@ public class Model {
 		setBombCount(bombCount);
 	}
 
-	public void reveal(int idx) {
+	public void setBombCount(int amount) {
 
-		if (fields.get(idx).isBomb())
-			if (uncoveredCount == 0)
-				moveBomb(idx, true);
+		bombCount = amount < fieldCount - 10 ? amount : fieldCount - 10;
+		reset();
 	}
 
-	public void moveBomb(int idx, boolean rnd) {
+	public int getBombCount() {
 
-		fields.get(idx).setValue(0);
+		return bombCount;
+	}
 
-		if (rnd)
-			for (int i = 0; i < fields.size(); i++) {
+	public void reset() {
 
-				if (!fields.get(i).isBomb()) {
+		fields = new ArrayList<Field>();
 
-					fields.get(i).setValue(-1);
-					break;
-				}
-			}
+		for (int i = 0; i < fieldCount; i++) {
+
+			fields.add(new Field(i < bombCount ? -1 : 0));
+		}
+
+		Collections.shuffle(fields);
 
 		calculateFieldValues();
+
 	}
 
-	public void calculateFieldValues() {
+	private void calculateFieldValues() {
 
 		for (int i = 0; i < fields.size(); i++) {
 
@@ -84,129 +80,78 @@ public class Model {
 		}
 	}
 
-	public void setBombCount(int amount) {
+	public void reveal(int idx) {
 
-		bombCount = amount < fieldCount - 10 ? amount : fieldCount - 10;
-		emptyCount = fieldCount - bombCount;
-	}
+		if (fields.get(idx).isFlagged())
+			return;
 
-	public int getBombCount() {
+		if (lost)
+			return;
 
-		return bombCount;
-	}
+		if (fields.get(idx).isBomb()) {
 
-	public void setCommentListener(Consumer<String> listener) {
-
-		listenerComment = listener;
-	}
-
-	public void setDifficultyLableListener(Consumer<String> listener) {
-
-		listenerDifficultyLabel = listener;
-	}
-	
-	public void setDontBoomListener(Consumer<Integer> listener) {
-		
-		listenerDontBoom = listener;
-	}
-	
-	public void setRevealListener(Consumer<Integer> listener) {
-		
-		listenerReveal = listener;
-	}
-	
-	public void setResetListener(Runnable listener) {
-		
-		listenerReset = listener;
-	}
-
-	// rework
-	public void checkUncoveredWin() {
-
-		uncoveredCount++;
-		if (fields.size() - bombCount == uncoveredCount)
-			win();
-
-		System.out.println(fields.size() - bombCount + " : " + uncoveredCount);
-	}
-
-	// rework
-	public boolean changeFlaggedCount(int idx) {
-
-		flagsCount += idx < 5000 ? 1 : -1;
-
-		if (fields.get(idx < 5000 ? idx : idx - 5000).isBomb()) {
-
-			bombsFoundCount += idx < 5000 ? 1 : -1;
-		}
-
-		System.out.println(
-				"BombCount : " + bombCount + " BombsFoundCount :" + bombsFoundCount + " FlagsCount : " + flagsCount);
-
-		if (bombsFoundCount == bombCount && flagsCount == bombCount) {
-
-			win();
-		}
-
-		return false;
-	}
-
-	// rework
-	public void win() {
-
-		if (won != -1) {
-			won = 1;
-			listenerComment.accept("Win! You can either reset or blow up the remaining bombs just for fun xD");
-		}
-	}
-
-	// rework
-	public void boom(int idx) {
-
-		if (uncoveredCount == 0) {
-			//moveBomb(idx, true);
-			//listenerDontBoom.accept(idx);
-			reset();
-			listenerReset.run();
-			listenerReveal.accept(idx);
+			lose();
 			return;
 		}
-		if (won != 1) {
-			won = -1;
-			listenerComment.accept("BOOOOOOOOMMMMMM!!!!!");
-		}
+
+		revealedCount++;
+		fields.get(idx).reveal();
+
+		if ((fieldCount - bombCount) == revealedCount)
+			win();
 	}
 
-	public int[] reset() {
+	public void flag(int idx) {
 
-		// rework
-		uncoveredCount = 0;
-		flagsCount = 0;
-		bombsFoundCount = 0;
-		won = 0;
+		if (lost)
+			return;
 
-		fields = new ArrayList<Field>();
+		if (!fields.get(idx).isFlagged())
+			flaggedCount++;
+		else
+			flaggedCount--;
 
-		for (int i = 0; i < fieldCount; i++) {
+		fields.get(idx).toggleFlag();
 
-			fields.add(new Field(i < bombCount ? -1 : 0));
-		}
+		if (allBombsFlagged())
+			win();
 
-		Collections.shuffle(fields);
+	}
 
-		calculateFieldValues();
+	private boolean allBombsFlagged() {
 
-		// to reset the listener... idk why
-		listenerComment.accept("");
-		listenerComment.accept("Reset successful!");
-		listenerDifficultyLabel.accept(Integer.toString(bombCount));
+		for (int i = 0; i < fields.size(); i++)
+			if (fields.get(i).isBomb() && !fields.get(i).isFlagged())
+				return false;
 
-		// rework
-		int[] arr = new int[fields.size()];
-		for (int i = 0; i < fields.size(); i++) {
-			System.out.println(fields.get(i).getValue());
-			arr[i] = fields.get(i).getValue();
-		}
-		return arr;
+		return true;
+	}
+
+	private void win() {
+
+		commentCaller.accept("Win");
+	}
+
+	private void lose() {
+
+		lost = true;
+		commentCaller.accept("Lose");
+	}
+
+	// set Callers
+
+	public void setCommentCaller(Consumer<String> caller) {
+
+		commentCaller = caller;
+	}
+
+	public void setDifficultyCaller(Consumer<String> caller) {
+
+		difficultyCaller = caller;
+	}
+
+	public void setResetCaller(Runnable caller) {
+
+		resetCaller = caller;
 	}
 }

@@ -18,21 +18,25 @@ public class GamePanel extends JPanel {
 	public void reset(int[] values) {
 
 		removeAll();
+		repaint();
+		revalidate();
 
 		setBackground(Color.BLUE);
 
 		for (int i = 0; i < fields.length; i++) {
 
-			fields[i] = new FieldButton(i, values[i]);
+			//fields[i] = new FieldButton(i, values[i]);
 			add(fields[i]);
 		}
+		
+		
 	}
 
 	public void toggleFlagMode() {
 
 		for (int i = 0; i < fields.length; i++) {
 
-			fields[i].toggleFlagMode();
+			//fields[i].toggleFlagMode();
 		}
 	}
 
@@ -40,7 +44,7 @@ public class GamePanel extends JPanel {
 
 		for (int i = 0; i < fields.length; i++) {
 
-			fields[i].setCheckUncoveredWinListener(listener);
+			//fields[i].setCheckUncoveredWinListener(listener);
 		}
 	}
 
@@ -48,8 +52,8 @@ public class GamePanel extends JPanel {
 
 		for (int i = 0; i < fields.length; i++) {
 
-			fields[i].setBoomListener(listener);
-			fields[i].setBoomEndListener(this::haltButtonAction);
+			//fields[i].setBoomListener(listener);
+			//fields[i].setBoomEndListener(this::haltButtonAction);
 		}
 	}
 
@@ -57,7 +61,7 @@ public class GamePanel extends JPanel {
 
 		for (int i = 0; i < fields.length; i++) {
 
-			fields[i].setRevealListener(listener);
+			//fields[i].setRevealListener(listener);
 		}
 	}
 
@@ -65,7 +69,7 @@ public class GamePanel extends JPanel {
 
 		for (int i = 0; i < fields.length; i++) {
 
-			fields[i].setRevealSurroundingsListener(this::revealSurroundings);
+			//fields[i].setRevealSurroundingsListener(this::revealSurroundings);
 		}
 	}
 
@@ -77,16 +81,16 @@ public class GamePanel extends JPanel {
 
 				int idx = i + (j * 10) + k;
 
-				if (idx >= 0 && idx < fields.length && !(idx % 10 == 9 && k == -1) && !(idx % 10 == 0 && k == 1))
-					if (!fields[idx].revealed)
-						fields[idx].reveal();
+				//if (idx >= 0 && idx < fields.length && !(idx % 10 == 9 && k == -1) && !(idx % 10 == 0 && k == 1))
+					//if (!fields[idx].revealed)
+						//fields[idx].reveal();
 			}
 		}
 	}
 
 	public void dontBoom(int idx) {
 
-		fields[idx].dontBoom();
+		//fields[idx].dontBoom();
 	}
 
 	public void haltButtonAction() {
@@ -109,9 +113,9 @@ public class GamePanel extends JPanel {
 				// TODO replace 10 with difficulty once implemented
 				int idx = i + (j * 10) + k;
 
-				if (idx >= 0 && idx < fields.length && !(idx % 10 == 9 && k == -1) && !(idx % 10 == 0 && k == 1))
-					if (!fields[idx].revealed)
-						fields[idx].reveal();
+				//if (idx >= 0 && idx < fields.length && !(idx % 10 == 9 && k == -1) && !(idx % 10 == 0 && k == 1))
+					//if (!fields[idx].revealed)
+						//fields[idx].reveal();
 			}
 		}
 	}
@@ -120,7 +124,7 @@ public class GamePanel extends JPanel {
 
 		for (int i = 0; i < fields.length; i++) {
 
-			fields[i].setChangeFlaggedCountListener(listener);
+			//fields[i].setChangeFlaggedCountListener(listener);
 		}
 	}
 
@@ -128,12 +132,12 @@ public class GamePanel extends JPanel {
 
 		for (int i = 0; i < fields.length; i++) {
 
-			fields[i].setFillListener(this::fill);
+			//fields[i].setFillListener(this::fill);
 		}
 	}
 
 	public void reveal(int idx) {
 		// TODO Auto-generated method stub
-		fields[idx].reveal();
+		//fields[idx].reveal();
 	}
 }
