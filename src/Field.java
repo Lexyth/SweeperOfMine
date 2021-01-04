@@ -15,7 +15,7 @@ public class Field {
 		value = value_;
 	}
 
-	public void reveal() {
+	public void toggleRevealed() {
 
 		revealed = true;
 	}

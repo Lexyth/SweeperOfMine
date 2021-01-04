@@ -11,7 +11,7 @@ public class SweeperOfMine {
 		Model model = new Model();
 		
 		Controller controller = new Controller();
-		controller.setViewModel(view, model);
+		//controller.setViewModel(view, model);
 		
 		JFrame frame = new JFrame("Sweeper Of Mine");
 		frame.setSize(500, 500);

@@ -1,8 +1,7 @@
 import java.awt.Color;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.function.Consumer;
+import java.util.function.BiConsumer;
 
 import javax.swing.JButton;
 import javax.swing.SwingUtilities;
@@ -10,30 +9,69 @@ import javax.swing.SwingUtilities;
 public class FieldButton extends JButton {
 
 	private int index;
-	//private Consumer<Integer> revealCaller;
-	
-	FieldButton (int idx) {
-		
+	// private Consumer<Integer> revealCaller;
+
+	FieldButton(int idx) {
+
 		this.setFocusPainted(false);
-		
+
 		this.setBackground(Color.BLUE);
-		
+
 		index = idx;
 	}
-	
+
 	public int getIndex() {
-		
+
 		return index;
 	}
-	
-	public void setRevealCaller (Consumer<Integer> caller) {
-		
-		addActionListener(event -> caller.accept(index));
+
+	public void reveal(String text) {
+
+		if (text.equals("bomb")) {
+			this.setBackground(Color.BLACK);
+			this.setText("B");
+		} else if (text.equals("reset")) {
+			this.setBackground(Color.BLUE);
+			this.setText("");
+		} else {
+			this.setBackground(Color.WHITE);
+			this.setText(text);
+		}
 	}
-	
-	
-	
-	
+
+	public void setFlag(boolean flag) {
+
+		if (flag)
+			this.setBackground(Color.RED);
+		else
+			this.setBackground(Color.BLUE);
+	}
+
+	public void setRevealCaller(BiConsumer<Integer, Integer> caller) {
+
+		addMouseListener(new MouseAdapter() {
+
+			public void mouseReleased(MouseEvent e) {
+
+				if (SwingUtilities.isLeftMouseButton(e))
+					caller.accept(index, 0);
+
+				if (SwingUtilities.isRightMouseButton(e))
+					caller.accept(index, 1);
+
+			}
+
+			public void mousePressed(MouseEvent e) {
+
+				if (e.getClickCount() == 2 && !e.isConsumed()) {
+
+					caller.accept(index, 2);
+					e.consume();
+				}
+			}
+		});
+	}
+
 //	private boolean flagMode = false;
 //	private boolean flag = false;
 //	private int value;
