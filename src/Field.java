@@ -17,7 +17,7 @@ public class Field {
 
 	public void toggleRevealed() {
 
-		revealed = true;
+		revealed = !revealed;
 	}
 
 	public void toggleFlag() {
@@ -30,12 +30,12 @@ public class Field {
 		return value;
 	}
 
-	public boolean isRevealed () {
+	public boolean isRevealed() {
 
 		return revealed;
 	}
 
-	public boolean isFlagged () {
+	public boolean isFlagged() {
 
 		return flagged;
 	}

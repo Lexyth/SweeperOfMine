@@ -4,56 +4,59 @@ import java.util.function.BiConsumer;
 import javax.swing.JPanel;
 
 public class View extends JPanel {
-	
+
 	private GamePanel gamePanel;
 	private OptionPanel optionPanel;
-	
-	View () {
-		
+
+	View() {
+
 		setLayout(new GridLayout(2, 1));
-		
+
 		gamePanel = new GamePanel();
 		add(gamePanel);
-		
+
 		optionPanel = new OptionPanel();
 		add(optionPanel);
 	}
-	
-	//GamePanel
-	
-	public void reveal(int idx, String text) {
-		
-		gamePanel.reveal(idx, text);
+
+	// GamePanel
+
+	public void setReveal(int idx, String text) {
+
+		gamePanel.setReveal(idx, text);
 	}
-	
+
 	public void setFlag(int idx, boolean flag) {
-		
+
 		gamePanel.setFlag(idx, flag);
 	}
-	
-	public void setCallers (BiConsumer<Integer, String> caller) {
-		
+
+	public void reset() {
+
+		gamePanel.reset();
+	}
+
+	// GamePanel Callers
+
+	public void setCallers(BiConsumer<Integer, String> caller) {
+
 		gamePanel.setCallers(caller);
 	}
-	
-	//OptionPanel
-	
+
+	// OptionPanel
+
 	public void setComment(String text) {
-		
+
 		optionPanel.setComment(text);
 	}
-	
+
+	// OptionPanel Callers
+
 	public void setResetCaller(Runnable caller) {
-		
+
 		optionPanel.setResetCaller(caller);
 	}
-	
 
-	
-	
-	
-	
-	
 //	
 //	GamePanel gamePanel = new GamePanel();
 //	OptionPanel optionPanel = new OptionPanel();
@@ -142,6 +145,5 @@ public class View extends JPanel {
 //		
 //		gamePanel.reveal(idx);
 //	}
-
 
 }

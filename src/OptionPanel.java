@@ -1,33 +1,30 @@
-import java.awt.Color;
-import java.awt.GridLayout;
-
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 public class OptionPanel extends JPanel {
-	
+
 	private JButton resetButton;
-	//difficultyButton
+	// difficultyButton
 	private JLabel commentLabel;
-	
-	OptionPanel () {
-		
+
+	OptionPanel() {
+
 		resetButton = new JButton("Reset");
 		resetButton.setFocusPainted(false);
 		add(resetButton);
-		
+
 		commentLabel = new JLabel("Welcome to Sweeper Of Mine!");
 		add(commentLabel);
 	}
-	
+
 	public void setResetCaller(Runnable caller) {
-		
+
 		resetButton.addActionListener(event -> caller.run());
 	}
-	
+
 	public void setComment(String text) {
-		
+
 		commentLabel.setText(text);
 	}
 

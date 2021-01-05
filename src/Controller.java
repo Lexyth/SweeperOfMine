@@ -6,30 +6,56 @@ public class Controller {
 
 	Controller() {
 
+		System.out.println("Construct Controller");
 	}
 
 	public void setViewModel(View view_, Model model_) {
 		view = view_;
 		model = model_;
 
+		// Callers
+
+		// View Callers
+
 		view.setResetCaller(this::handleReset);
 		view.setCallers(this::handleFieldClicks);
 
-		model.setRepaintCaller(this::handleRepaint);
+		// Model Callers
+
+		model.setDisplayCaller(this::handleDisplay);
 		model.setCommentCaller(this::handleComment);
 	}
 
 	private void handleReset() {
 
 		model.reset();
+		view.reset();
 	}
 
 	private void handleFieldClicks(int idx, String type) {
 
+		if (type.equals("LMB"))
+			model.reveal(idx);
+		else if (type.equals("RMB"))
+			model.flag(idx);
+		else if (type.equals("Double-Click"))
+			model.revealSurroundings(idx); // no if needed, but just in case...
 	}
 
 	private void handleRepaint() {
 
+	}
+
+	private void handleDisplay(int idx, String type) {
+
+		if (type.equals("true") || type.equals("false"))
+			view.setFlag(idx, type.equals("true"));
+		else if (type.equals("-1"))
+			view.setReveal(idx, "B");
+		else
+			view.setReveal(idx, type);
+		
+		//System.out.println("Display");
 	}
 
 	private void handleComment(String text) {

@@ -10,17 +10,39 @@ public class GamePanel extends JPanel {
 	GamePanel() {
 
 		setLayout(new GridLayout(10, 10));
+
+		for (int i = 0; i < fields.length; i++) {
+
+			fields[i] = new FieldButton(i);
+			add(fields[i]);
+		}
+
+		revalidate();
+		repaint();
 	}
-	
-	public void reveal(int idx, String text) {
-		
-		fields[idx].reveal(text);
+
+	public void setReveal(int idx, String text) {
+
+		fields[idx].setReveal(text);
 	}
-	
+
 	public void setFlag(int idx, boolean flag) {
-		
+
 		fields[idx].setFlag(flag);
 	}
+
+	public void reset() {
+
+		System.out.println("GamePanelReset");
+
+		for (FieldButton fb : fields) {
+
+			fb.setFlag(false);
+			fb.setReveal("reset");
+		}
+	}
+
+	// Callers
 
 	public void setCallers(BiConsumer<Integer, String> caller) {
 

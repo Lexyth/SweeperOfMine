@@ -12,7 +12,7 @@ public class FieldButton extends JButton {
 	// private Consumer<Integer> revealCaller;
 
 	FieldButton(int idx) {
-		
+
 		super(" ");
 
 		this.setFocusPainted(false);
@@ -22,13 +22,13 @@ public class FieldButton extends JButton {
 		index = idx;
 	}
 
-	//reconsider: is this needed...
+	// reconsider: is this needed...
 	public int getIndex() {
 
 		return index;
 	}
 
-	public void reveal(String text) {
+	public void setReveal(String text) {
 
 		if (text.equals("bomb")) {
 			this.setBackground(Color.BLACK);
@@ -49,6 +49,8 @@ public class FieldButton extends JButton {
 		else
 			this.setBackground(Color.BLUE);
 	}
+
+	// Callers
 
 	public void setCaller(BiConsumer<Integer, String> caller) {
 
