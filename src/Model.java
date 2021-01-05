@@ -9,12 +9,13 @@ public class Model {
 	private ArrayList<Field> fields;
 	private int size = 10;
 	private int fieldCount = size * size;
-	private int bombCount = 10;
+	private int bombCount = 30;
 
 	private int revealedCount = 0;
 	// private int flaggedCount = 0;
 
 	private boolean lost = false;
+	private int winLoseStatus = 0;
 
 	private BiConsumer<Integer, String> displayCaller;
 	private Consumer<String> commentCaller;
@@ -34,7 +35,7 @@ public class Model {
 
 	public void setBombCount(int amount) {
 
-		bombCount = amount < fieldCount - 10 ? amount : fieldCount - 10;
+		bombCount = amount < fieldCount - 25 ? amount : fieldCount - 25;
 		reset();
 	}
 
@@ -54,6 +55,8 @@ public class Model {
 	}
 
 	public void resetFields(int clickIdx) {
+
+		System.out.println("ModelResetFields" + clickIdx);
 
 		ArrayList<Integer> flags = new ArrayList<>();
 
@@ -75,17 +78,21 @@ public class Model {
 
 				int idx = clickIdx + i + (size * j);
 
-				if (idx >= 0 && idx < fields.size() && !(idx % size == size - 1 && i == -1)
-						&& !(idx % size == 0 && j == 1))
+				if (idx >= 0 && idx < size * size && !((clickIdx % size + i < 0) || (clickIdx % size + i > size))) {
 
 					if (fields.get(idx).isBomb()) {
 
 						fields.get(idx).setValue(0);
 						int k = new Random().nextInt(size * size);
-						while (fields.get(k).isBomb() || ((k > i - 2 && k < i + 2) && (k > j - 2 && k < j + 2)))
+						while (fields.get(k).isBomb()
+								|| ((k % size >= clickIdx % size - 2 && k % size <= clickIdx % size + 2)
+										&& (k >= clickIdx - (2 * size) && k <= clickIdx + (2 * size)))) {
 							k++;
+							k %= size * size;
+						}
 						fields.get(k).setValue(-1);
 					}
+				}
 			}
 		}
 
@@ -123,7 +130,8 @@ public class Model {
 
 		revealedCount = 0;
 		// flaggedCount = 0;
-		lost = false;
+		winLoseStatus = 0;
+
 		for (int i = 0; i < fields.size(); i++) {
 			if (fields.get(i).isFlagged())
 				fields.get(i).toggleFlag();
@@ -136,7 +144,7 @@ public class Model {
 
 	public void reveal(int idx) {
 
-		if (fields.get(idx).isFlagged() || fields.get(idx).isRevealed() || lost)
+		if (fields.get(idx).isFlagged() || fields.get(idx).isRevealed() || winLoseStatus == -1)
 			return;
 
 		if (revealedCount == 0)
@@ -167,21 +175,35 @@ public class Model {
 
 				int idx = clickIdx + i + (size * j);
 				if (idx >= 0 && idx < fields.size() && !(idx % size == size - 1 && i == -1)
-						&& !(idx % size == 0 && i == 1))
+						&& !(idx % size == 0 && i == 1)) {
+					if (fields.get(idx).isFlagged())
+						fields.get(idx).toggleFlag();
 					reveal(idx);
+				}
 			}
 		}
 	}
 
-	public void revealSurroundings(int idx) {
+	public void revealSurroundings(int clickIdx) {
 
-		if (fields.get(idx).isRevealed()) {
+		if (fields.get(clickIdx).isRevealed()) {
+			for (int i = -1; i <= 1; i++)
+				for (int j = -1; j <= 1; j++) {
+					int idx = clickIdx + i + (j * size);
+					if (idx >= 0 && idx < size * size && !(idx % size == size - 1 && i == -1)
+							&& !(idx % size == 0 && i == 1))
+						if (!fields.get(idx).isRevealed())
+							reveal(idx);
+				}
 		}
 	}
 
 	public void flag(int idx) {
 
-		if (lost)
+		if (winLoseStatus == -1)
+			return;
+
+		if (fields.get(idx).isRevealed())
 			return;
 
 //		if (!fields.get(idx).isFlagged())
@@ -209,13 +231,19 @@ public class Model {
 
 	private void win() {
 
-		commentCaller.accept("Win");
+		if (!(winLoseStatus == -1)) {
+			winLoseStatus = 1;
+			commentCaller.accept("Win");
+		}
 	}
 
 	private void lose() {
 
-		lost = true;
-		commentCaller.accept("Lose");
+		if (!(winLoseStatus == 1)) {
+			winLoseStatus = -1;
+			commentCaller.accept("Lose");
+		}
+
 	}
 
 	private void display(int idx, String type) {

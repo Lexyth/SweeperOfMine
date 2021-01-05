@@ -30,6 +30,7 @@ public class Controller {
 
 		model.reset();
 		view.reset();
+		handleComment("Reset Successful");
 	}
 
 	private void handleFieldClicks(int idx, String type) {
