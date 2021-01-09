@@ -18,7 +18,8 @@ public class Controller {
 		// View Callers
 
 		view.setResetCaller(this::handleReset);
-		view.setCallers(this::handleFieldClicks);
+		view.setDifficultyCaller(this::handleDifficulty);
+		view.setFieldCaller(this::handleFieldClicks);
 
 		// Model Callers
 
@@ -31,6 +32,12 @@ public class Controller {
 		model.reset();
 		view.reset();
 		handleComment("Reset Successful");
+	}
+
+	private String handleDifficulty() {
+
+		model.setBombCount(model.getBombCount() < model.getSize()*model.getSize() - 40 ? model.getBombCount() + 10 : 10);
+		return Integer.toString(model.getBombCount());
 	}
 
 	private void handleFieldClicks(int idx, String type) {
@@ -55,8 +62,8 @@ public class Controller {
 			view.setReveal(idx, "B");
 		else
 			view.setReveal(idx, type);
-		
-		//System.out.println("Display");
+
+		// System.out.println("Display");
 	}
 
 	private void handleComment(String text) {

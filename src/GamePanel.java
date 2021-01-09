@@ -44,10 +44,10 @@ public class GamePanel extends JPanel {
 
 	// Callers
 
-	public void setCallers(BiConsumer<Integer, String> caller) {
+	public void setFieldCaller(BiConsumer<Integer, String> caller) {
 
 		for (FieldButton fb : fields)
-			fb.setCaller(caller);
+			fb.setFieldCaller(caller);
 	}
 
 //

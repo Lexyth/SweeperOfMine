@@ -52,7 +52,7 @@ public class FieldButton extends JButton {
 
 	// Callers
 
-	public void setCaller(BiConsumer<Integer, String> caller) {
+	public void setFieldCaller(BiConsumer<Integer, String> caller) {
 
 		addMouseListener(new MouseAdapter() {
 

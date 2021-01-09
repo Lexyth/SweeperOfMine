@@ -1,3 +1,5 @@
+import java.util.function.Supplier;
+
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -5,7 +7,10 @@ import javax.swing.JPanel;
 public class OptionPanel extends JPanel {
 
 	private JButton resetButton;
-	// difficultyButton
+	
+	private JButton difficultyButton;
+	private JLabel difficultyLabel;
+	
 	private JLabel commentLabel;
 
 	OptionPanel() {
@@ -13,6 +18,13 @@ public class OptionPanel extends JPanel {
 		resetButton = new JButton("Reset");
 		resetButton.setFocusPainted(false);
 		add(resetButton);
+		
+		difficultyButton = new JButton("Difficulty");
+		difficultyButton.setFocusPainted(false);
+		add(difficultyButton);
+		
+		difficultyLabel = new JLabel("10");
+		add(difficultyLabel);
 
 		commentLabel = new JLabel("Welcome to Sweeper Of Mine!");
 		add(commentLabel);
@@ -21,6 +33,11 @@ public class OptionPanel extends JPanel {
 	public void setResetCaller(Runnable caller) {
 
 		resetButton.addActionListener(event -> caller.run());
+	}
+	
+	public void setDifficultyCaller(Supplier<String> supplier) {
+		
+		difficultyButton.addActionListener(event -> difficultyLabel.setText(supplier.get()));
 	}
 
 	public void setComment(String text) {

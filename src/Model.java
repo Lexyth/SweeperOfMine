@@ -9,12 +9,11 @@ public class Model {
 	private ArrayList<Field> fields;
 	private int size = 10;
 	private int fieldCount = size * size;
-	private int bombCount = 30;
+	private int bombCount = 10;
 
 	private int revealedCount = 0;
 	// private int flaggedCount = 0;
 
-	private boolean lost = false;
 	private int winLoseStatus = 0;
 
 	private BiConsumer<Integer, String> displayCaller;
@@ -32,10 +31,16 @@ public class Model {
 		fieldCount = size * size;
 		setBombCount(bombCount);
 	}
+	
+	public int getSize() {
+		
+		return size;
+	}
 
 	public void setBombCount(int amount) {
 
 		bombCount = amount < fieldCount - 25 ? amount : fieldCount - 25;
+		createFields();
 		reset();
 	}
 
@@ -257,11 +262,6 @@ public class Model {
 
 		commentCaller = caller;
 	}
-
-//	public void setDifficultyCaller(Consumer<String> caller) {
-//
-//		difficultyCaller = caller;
-//	}
 
 	public void setDisplayCaller(BiConsumer<Integer, String> caller) {
 

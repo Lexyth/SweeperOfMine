@@ -1,5 +1,6 @@
 import java.awt.GridLayout;
 import java.util.function.BiConsumer;
+import java.util.function.Supplier;
 
 import javax.swing.JPanel;
 
@@ -38,9 +39,9 @@ public class View extends JPanel {
 
 	// GamePanel Callers
 
-	public void setCallers(BiConsumer<Integer, String> caller) {
+	public void setFieldCaller(BiConsumer<Integer, String> caller) {
 
-		gamePanel.setCallers(caller);
+		gamePanel.setFieldCaller(caller);
 	}
 
 	// OptionPanel
@@ -55,6 +56,11 @@ public class View extends JPanel {
 	public void setResetCaller(Runnable caller) {
 
 		optionPanel.setResetCaller(caller);
+	}
+	
+	public void setDifficultyCaller(Supplier<String> supplier) {
+		
+		optionPanel.setDifficultyCaller(supplier);
 	}
 
 //	
